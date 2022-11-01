@@ -7,6 +7,12 @@ export default class App extends React.Component {
   state = {
     todos: [],
     error: '',
+    todoNameInput: '',
+  }
+
+  onTodoNameInputChange = e => {
+    const { value } = e.target
+    this.setState({ ...this.state, todoNameInput: value })
   }
 
   fetchAllTodos = () => {
@@ -18,7 +24,6 @@ export default class App extends React.Component {
         this.setState({ ...this.state, error: err.response.data.message })
       })
   }
-
   componentDidMount() {
     // fetch all todos from server
     this.fetchAllTodos()
@@ -38,7 +43,7 @@ export default class App extends React.Component {
           }
         </div>
         <form>
-          <input type="text" placeholder='Type todo'></input>
+          <input value ={this.state.todoNameInput} onChange={this.onTodoNameInputChange} type="text" placeholder='Type todo'></input>
           <input type="submit"></input>
           <button>Clear Completed</button>
         </form>
